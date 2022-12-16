@@ -6,7 +6,6 @@ type Props = {
 }
 
 const Login = (props: Props) => {
-
     const [err, setErr] = useState(false);
     const handleSubmit = (e: FormEvent) => {
         e.preventDefault();
