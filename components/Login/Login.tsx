@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import React, { FormEvent, useState } from 'react'
-import styles from "../../styles/Login.module.scss"
+import styles from "../../styles/Homepage.module.scss"
 type Props = {
 
 }

@@ -15,7 +15,6 @@ export const AuthContextProvider = ({ children }: authProps) => {
         const unsub = onAuthStateChanged(auth, async(user) => {
             if(user){
                 setCurrentUser(user);
-                console.log(user)
             }
         })
 
@@ -23,4 +22,5 @@ export const AuthContextProvider = ({ children }: authProps) => {
     }, [])
 
     return <AuthContext.Provider value={{ currentUser }}>{children}</AuthContext.Provider>
+    
 }
