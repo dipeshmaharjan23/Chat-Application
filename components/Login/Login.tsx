@@ -1,5 +1,8 @@
+import { signInWithEmailAndPassword } from 'firebase/auth';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import React, { FormEvent, useState } from 'react'
+import { auth } from '../../firebase';
 import styles from "../../styles/Homepage.module.scss"
 type Props = {
 
@@ -7,8 +10,19 @@ type Props = {
 
 const Login = (props: Props) => {
     const [err, setErr] = useState(false);
-    const handleSubmit = (e: FormEvent) => {
+    const router = useRouter();
+    const handleSubmit = (e: any) => {
         e.preventDefault();
+        const email = e.target[0].value;
+        const password = e.target[1].value;
+
+        try {
+            signInWithEmailAndPassword(auth, email, password)
+            router.push("/homepage")
+        } catch (error) {
+            setErr(true)
+        }
+
     }
     return (
         <div className={styles.formContainer}>
