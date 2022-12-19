@@ -1,16 +1,17 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { auth } from '../../firebase'
 import styles from "../../styles/Homepage.module.scss"
 import { signOut } from 'firebase/auth'
+import { AuthContext } from '../../Context/AuthContext'
 type Props = {}
 
 const Navbar = (props: Props) => {
-
+ const {currentUser} = useContext(AuthContext)
   return (
     <div className={styles.navbar}>
       <span className={styles.logo}>Chat App</span>
       <div className={styles.user}>
-        <img src="/user12.png" alt="avatar" />
+        <img src={currentUser.photoURL} alt="avatar" />
         <span>ram</span>
         <button onClick={() => signOut(auth)}>logout</button>
       </div>
