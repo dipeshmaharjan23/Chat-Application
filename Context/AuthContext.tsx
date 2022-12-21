@@ -9,18 +9,18 @@ type authProps = {
     children: ReactNode;
 }
 export const AuthContextProvider = ({ children }: authProps) => {
-    const [currentUser, setCurrentUser] = useState({})
-
+    const [currentUser, setCurrentUser] = useState<{} | null>({})
+    // console.log(currentUser);
     useEffect(() => {
-        const unsub = onAuthStateChanged(auth, async(user) => {
-            if(user){
-                setCurrentUser(user);
-            }
+        const unsub = onAuthStateChanged(auth, (user ) => {
+            setCurrentUser(user);
+            // console.log(user)
         })
 
         return () => unsub();
     }, [])
 
+
     return <AuthContext.Provider value={{ currentUser }}>{children}</AuthContext.Provider>
-    
+
 }

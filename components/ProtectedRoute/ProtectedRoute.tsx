@@ -21,7 +21,7 @@ import { AuthContext } from '../../Context/AuthContext';
 
 const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
     const router = useRouter();
-    const {currentUser} = useContext(AuthContext)
+    const currentUser = useContext(AuthContext)
 
     useEffect(() => {
         if (!currentUser) {
