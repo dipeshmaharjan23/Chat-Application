@@ -18,8 +18,8 @@ const Search = (props: Props) => {
       const querySnapshot = await getDocs(q);
       querySnapshot.forEach((doc) => {
         const dat = doc.data();
-        if(dat){
-            setUser(dat)
+        if (dat) {
+          setUser(dat)
         }
       });
 
@@ -30,7 +30,9 @@ const Search = (props: Props) => {
   }
   const handleKey = (e: React.KeyboardEvent<HTMLInputElement>) => {
     e.code === "Enter" && handleSelect()
+    setUser("")
   }
+  console.log(user)
   return (
     <div className={styles.search}>
       <div className={styles.searchForm}>
@@ -43,14 +45,15 @@ const Search = (props: Props) => {
         />
       </div>
       {err && <span>User not found!</span>}
-      <div className={styles.userChat} onClick={handleSelect}>
-        <img src="/user12.png" alt="avatar" />
-        <div className={styles.userChatInfo}>
-          <span>Ram</span>
+      {
+        user &&
+        <div className={styles.userChat} onClick={handleSelect}>
+          <img src={user.photoURL} alt="avatar" />
+          <div className={styles.userChatInfo}>
+            <span>{user.displayName}</span>
+          </div>
         </div>
-      </div>
-      {/* {user && ( */}
-      {/* )} */}
+      }
     </div>
   )
 }
