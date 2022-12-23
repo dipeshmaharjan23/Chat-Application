@@ -2,6 +2,7 @@ import { signInWithEmailAndPassword } from 'firebase/auth';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React, { FormEvent, useState } from 'react'
+import { toast, ToastContainer } from 'react-toastify';
 import { auth } from '../../firebase';
 import styles from "../../styles/Homepage.module.scss"
 type Props = {
@@ -18,7 +19,13 @@ const Login = (props: Props) => {
 
         try {
             signInWithEmailAndPassword(auth, email, password)
-            router.push("/homepage")
+                .then(() => {
+                    router.push("/homepage")
+                    toast.success("Successfully Login")
+                })
+                .catch((err) => {
+                    toast.error("Wrong Password or Email")
+                })
         } catch (error) {
             setErr(true)
         }
@@ -26,6 +33,18 @@ const Login = (props: Props) => {
     }
     return (
         <div className={styles.formContainer}>
+            <ToastContainer
+                position="top-center"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="light"
+            />
             <div className={styles.formWrapper}>
                 <span className={styles.logo}>Chat Application</span>
                 <span className={styles.title}>Login</span>

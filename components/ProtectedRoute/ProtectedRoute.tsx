@@ -22,7 +22,7 @@ import { AuthContext } from '../../Context/AuthContext';
 const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
     const router = useRouter();
     const currentUser = useContext(AuthContext)
-    // console.log(currentUser);
+    console.log(currentUser);
     if (!currentUser) {
         router.push("/");
     }

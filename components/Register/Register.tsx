@@ -7,13 +7,14 @@ import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { doc, setDoc } from "firebase/firestore";
 import { toast, ToastContainer } from "react-toastify";
+import { useRouter } from "next/router";
 
 type Props = {};
 const Register = (props: Props) => {
   const [err, setErr] = useState(false);
   const [loading, setLoading] = useState(false);
-  // const navigate = useNavigate();
-  const handleSubmit = async (e: any) => {
+  const router = useRouter();
+  ; const handleSubmit = async (e: any) => {
     e.preventDefault();
     const displayName = e.target[0].value;
     const email = e.target[1].value;
@@ -47,12 +48,15 @@ const Register = (props: Props) => {
           const progress =
             (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
           console.log("Upload is " + progress + "% done");
+          toast.success("Register successfully ! Redirecting")
           switch (snapshot.state) {
             case "paused":
               console.log("Upload is paused");
+              toast.warn("Upload is paused");
               break;
             case "running":
               console.log("Upload is running");
+              toast.loading("Upload is running");
               break;
           }
         },
@@ -77,6 +81,7 @@ const Register = (props: Props) => {
           });
         }
       );
+      router.push("/")
     } catch (err) {
       setErr(true);
       console.log(err);
@@ -85,6 +90,18 @@ const Register = (props: Props) => {
 
   return (
     <div className={styles.formContainer}>
+      <ToastContainer
+        position="top-center"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
       <div className={styles.formWrapper}>
         <span className={styles.logo}> Chat Application</span>
         <span className={styles.title}>Register</span>
@@ -118,7 +135,7 @@ const Register = (props: Props) => {
           You do have an account? <Link href="/register">Login</Link>
         </p>
       </div>
-      <ToastContainer/>
+
     </div>
   );
 };
